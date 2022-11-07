@@ -121,7 +121,6 @@ public class ReportCreator {
                     List<Map<Integer, Map<String, Integer>>> creation_date = res.get(resultSet.getDate("creation_date"));
                     creation_date.add(Map.of(resultSet.getInt("product_inner_code"), Map.of("amount", resultSet.getInt("amount"), "price", resultSet.getInt("price"))));
 
-                    //new
                     if (periodResults.containsKey(resultSet.getInt("product_inner_code"))){
                         Map<String, Integer> product_inner_code = periodResults.get(resultSet.getInt("product_inner_code"));
                         if (product_inner_code.get("amount") != null) {
@@ -140,7 +139,6 @@ public class ReportCreator {
                     creation_date.add(Map.of(resultSet.getInt("product_inner_code"), Map.of("amount", resultSet.getInt("amount"), "price", resultSet.getInt("price"))));
                     res.put(resultSet.getDate("creation_date"), creation_date);
 
-                    //new
                     if (periodResults.containsKey(resultSet.getInt("product_inner_code"))){
                         Map<String, Integer> product_inner_code = periodResults.get(resultSet.getInt("product_inner_code"));
                         if (product_inner_code.get("amount") != null) {
@@ -166,7 +164,7 @@ public class ReportCreator {
         return res;
     }
 
-    public static Map<Organization, Product> getDeliveredByOrganizationsProductsListInPeriod(@NotNull Timestamp start, @NotNull Timestamp end){
+    public static Map<Organization, List<Product>> getDeliveredByOrganizationsProductsListInPeriod(@NotNull Timestamp start, @NotNull Timestamp end){
         final String query = "SELECT DISTINCT org_name, inn, payment_account, prod_name, inner_code " +
                 "FROM organization " +
                 "LEFT JOIN invoice i on organization.inn = i.organization_inn " +
@@ -174,7 +172,7 @@ public class ReportCreator {
                 "LEFT JOIN product p on p.inner_code = ip.product_inner_code " +
                 "WHERE (creation_date BETWEEN ? AND ?) OR (creation_date IS NULL);";
 
-        Map<Organization, Product> res = new HashMap<>();
+        Map<Organization, List<Product>> res = new HashMap<>();
 
         try(var connection = ConnectionProvider.getConnection()){
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -185,8 +183,24 @@ public class ReportCreator {
 
             while (resultSet.next()){
                 Organization organization = new Organization(resultSet.getString("org_name"), resultSet.getLong("INN"), resultSet.getInt("payment_account"));
-                if (resultSet.getString("prod_name") != null) res.put(organization, new Product(resultSet.getString("prod_name"), resultSet.getInt("inner_code")));
-                else res.put(organization, null);
+                if (res.containsKey(organization)){
+                    List<Product> productList = res.get(organization);
+                    if (productList != null) productList.add(new Product(resultSet.getString("prod_name"), resultSet.getInt("inner_code")));
+                    else {
+                        productList = new ArrayList<>();
+                        productList.add(new Product(resultSet.getString("prod_name"), resultSet.getInt("inner_code")));
+                        res.put(organization, productList);
+                    }
+                }
+                else {
+                    if (resultSet.getString("prod_name") != null) {
+                        List<Product> productList = new ArrayList<>();
+                        productList.add(new Product(resultSet.getString("prod_name"), resultSet.getInt("inner_code")));
+                        res.put(organization, productList);
+                    }else {
+                        res.put(organization, null);
+                    }
+                }
             }
 
         } catch (SQLException throwables) {
