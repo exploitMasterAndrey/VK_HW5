@@ -1,8 +1,5 @@
 package manager;
 
-import model.Invoice;
-import model.Organization;
-import model.Product;
 import org.jetbrains.annotations.NotNull;
 import util.ConnectionProvider;
 
@@ -15,8 +12,8 @@ public class UpdateManager {
     public static class OrganizationUpdateManager{
         private static String query = "UPDATE organization SET org_name = ?, payment_account = ? WHERE inn = ?";
 
-        public static Organization updateOrganization(@NotNull String newOrganizationName, @NotNull Integer newPaymentAccount, @NotNull Long INN){
-            Organization organization = null;
+        public static Integer updateOrganization(@NotNull String newOrganizationName, @NotNull Integer newPaymentAccount, @NotNull Long INN){
+            int res = 0;
 
             try(var connection = ConnectionProvider.getConnection()){
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -24,44 +21,40 @@ public class UpdateManager {
                 preparedStatement.setInt(2, newPaymentAccount);
                 preparedStatement.setLong(3, INN);
 
-                preparedStatement.executeUpdate();
-
-                organization = new Organization(newOrganizationName, INN, newPaymentAccount);
+                res = preparedStatement.executeUpdate();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return organization;
+            return res;
         }
     }
 
     public static class ProductUpdateManager{
         private static String query = "UPDATE product SET prod_name = ? WHERE inner_code = ?";
 
-        public static Product updateProduct(@NotNull String newProductName, @NotNull Integer innerCode){
-            Product product = null;
+        public static Integer updateProduct(@NotNull String newProductName, @NotNull Integer innerCode){
+            int res = 0;
 
             try(var connection = ConnectionProvider.getConnection()){
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, newProductName);
                 preparedStatement.setInt(2, innerCode);
 
-                preparedStatement.executeUpdate();
-
-                product = new Product(newProductName, innerCode);
+                res = preparedStatement.executeUpdate();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return product;
+            return res;
         }
     }
 
     public static class InvoiceUpdateManager{
         private static String query = "UPDATE invoice SET creation_date = ?, organization_inn = ? WHERE num = ?";
 
-        public static Invoice updateInvoice(@NotNull Timestamp newCreationDate, @NotNull Long newOrganizationINN, @NotNull Integer num){
-            Invoice invoice = null;
+        public static Integer updateInvoice(@NotNull Timestamp newCreationDate, @NotNull Long newOrganizationINN, @NotNull Integer num){
+            int res = 0;
 
             try(var connection = ConnectionProvider.getConnection()){
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -69,22 +62,20 @@ public class UpdateManager {
                 preparedStatement.setLong(2, newOrganizationINN);
                 preparedStatement.setInt(3, num);
 
-                preparedStatement.executeUpdate();
-
-                invoice = new Invoice(num, newCreationDate, newOrganizationINN);
+                res = preparedStatement.executeUpdate();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return invoice;
+            return res;
         }
     }
 
     public static class InvoicePositionUpdateManager{
         private static String query = "UPDATE invoice_position SET price = ?, amount = ? WHERE product_inner_code = ? AND invoice_num = ?";
 
-        public static Invoice.InvoicePosition updateInvoicePosition(@NotNull Integer newPrice, @NotNull Integer newAmount, @NotNull Integer productInnerCode, @NotNull Integer invoiceNum){
-            Invoice.InvoicePosition invoicePosition = null;
+        public static Integer updateInvoicePosition(@NotNull Integer newPrice, @NotNull Integer newAmount, @NotNull Integer productInnerCode, @NotNull Integer invoiceNum){
+            int res = 0;
 
             try(var connection = ConnectionProvider.getConnection()){
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -93,14 +84,12 @@ public class UpdateManager {
                 preparedStatement.setInt(3, productInnerCode);
                 preparedStatement.setInt(4, invoiceNum);
 
-                preparedStatement.executeUpdate();
-
-                invoicePosition = new Invoice.InvoicePosition(newPrice, productInnerCode, newAmount, invoiceNum);
+                res = preparedStatement.executeUpdate();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return invoicePosition;
+            return res;
         }
     }
 }

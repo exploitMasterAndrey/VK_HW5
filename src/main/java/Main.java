@@ -44,7 +44,7 @@ public class Main {
 
 
         System.out.println("===========DELETING===========");
-        DeleteManager.InvoicePositionDeleteManager.deleteInvoice(991, 111);
+        DeleteManager.InvoicePositionDeleteManager.deleteInvoicePosition(991, 111);
 
         DeleteManager.InvoiceDeleteManager.deleteInvoice(111);
 

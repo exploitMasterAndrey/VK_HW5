@@ -1,12 +1,8 @@
 package manager;
 
-import model.Invoice;
-import model.Organization;
-import model.Product;
 import org.jetbrains.annotations.NotNull;
 import util.ConnectionProvider;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -16,8 +12,8 @@ public class CreateManager {
     public static class OrganizationCreateManager{
         private static String query = "INSERT INTO organization(org_name, INN, payment_account) VALUES (?,?,?)";
 
-        public static Organization createOrganization(@NotNull String name, @NotNull Long INN, @NotNull Integer paymentAccount){
-            Organization organization = new Organization(name, INN, paymentAccount);
+        public static Integer createOrganization(@NotNull String name, @NotNull Long INN, @NotNull Integer paymentAccount){
+            int res = 0;
 
             try(var connection = ConnectionProvider.getConnection()){
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -25,42 +21,42 @@ public class CreateManager {
                 preparedStatement.setLong(2, INN);
                 preparedStatement.setInt(3, paymentAccount);
 
-                preparedStatement.executeUpdate();
+                res =  preparedStatement.executeUpdate();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
-            return organization;
+            return res;
         }
     }
 
     public static class ProductCreateManager{
         private static String query = "INSERT INTO product(prod_name, inner_code) VALUES (?,?)";
 
-        public static Product createProduct(@NotNull String name, @NotNull Integer innerCode){
-            Product product = new Product(name, innerCode);
+        public static Integer createProduct(@NotNull String name, @NotNull Integer innerCode){
+            int res = 0;
 
             try(var connection = ConnectionProvider.getConnection()){
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, name);
                 preparedStatement.setInt(2, innerCode);
 
-                preparedStatement.executeUpdate();
+                res = preparedStatement.executeUpdate();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
-            return product;
+            return res;
         }
     }
 
     public static class InvoiceCreateManager{
         private static String query = "INSERT INTO invoice(num, creation_date, organization_INN) VALUES (?,?,?)";
 
-        public static Invoice createInvoice(@NotNull Integer num, @NotNull Timestamp date, @NotNull Long organizationINN){
-            Invoice invoice = new Invoice(num, date, organizationINN);
+        public static Integer createInvoice(@NotNull Integer num, @NotNull Timestamp date, @NotNull Long organizationINN){
+            int res = 0;
 
             try(var connection = ConnectionProvider.getConnection()){
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -68,21 +64,21 @@ public class CreateManager {
                 preparedStatement.setTimestamp(2, date);
                 preparedStatement.setLong(3, organizationINN);
 
-                preparedStatement.executeUpdate();
+                res = preparedStatement.executeUpdate();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
-            return invoice;
+            return res;
         }
     }
 
     public static class InvoicePositionCreateManager{
         private static String query = "INSERT INTO invoice_position(price, product_inner_code, amount, invoice_num) VALUES (?,?,?,?)";
 
-        public static void createInvoicePosition(@NotNull Integer price, @NotNull Integer productInnerCode, @NotNull Integer amount, @NotNull Integer invoiceNum){
-            Invoice.InvoicePosition invoicePosition = new Invoice.InvoicePosition(price, productInnerCode, amount, invoiceNum);
+        public static Integer createInvoicePosition(@NotNull Integer price, @NotNull Integer productInnerCode, @NotNull Integer amount, @NotNull Integer invoiceNum){
+            int res = 0;
 
             try(var connection = ConnectionProvider.getConnection()){
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -91,11 +87,13 @@ public class CreateManager {
                 preparedStatement.setInt(3, amount);
                 preparedStatement.setInt(4, invoiceNum);
 
-                preparedStatement.executeUpdate();
+                res = preparedStatement.executeUpdate();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+
+            return res;
         }
     }
 }
