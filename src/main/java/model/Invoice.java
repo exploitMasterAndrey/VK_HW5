@@ -3,6 +3,7 @@ package model;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Invoice {
     private @NotNull Integer num;
@@ -16,6 +17,19 @@ public class Invoice {
         this.num = num;
         this.creationDate = creationDate;
         this.organizationINN = organizationINN;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Invoice invoice = (Invoice) o;
+        return num.equals(invoice.num) && creationDate.equals(invoice.creationDate) && organizationINN.equals(invoice.organizationINN);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(num, creationDate, organizationINN);
     }
 
     @NotNull
@@ -43,6 +57,19 @@ public class Invoice {
         private @NotNull Integer productInnerCode;
         private @NotNull Integer amount;
         private @NotNull Integer invoiceNum;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            InvoicePosition that = (InvoicePosition) o;
+            return price.equals(that.price) && productInnerCode.equals(that.productInnerCode) && amount.equals(that.amount) && invoiceNum.equals(that.invoiceNum);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(price, productInnerCode, amount, invoiceNum);
+        }
 
         public InvoicePosition(@NotNull Integer price, @NotNull Integer productInnerCode, @NotNull Integer amount, @NotNull Integer invoiceNum) {
             this.price = price;
