@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="manager.ManagersTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-11-07T21:39:30" hostname="DESKTOP-OQ9HF9O" time="1.883">
+<testsuite name="manager.ManagersTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-11-07T21:40:54" hostname="DESKTOP-OQ9HF9O" time="1.789">
   <properties/>
-  <testcase name="CUDMethodsReturn1AfterExecutingRequest()" classname="manager.ManagersTest" time="1.354"/>
-  <testcase name="readMethodReturnRightEntity()" classname="manager.ManagersTest" time="0.529"/>
+  <testcase name="CUDMethodsReturn1AfterExecutingRequest()" classname="manager.ManagersTest" time="1.235"/>
+  <testcase name="readMethodReturnRightEntity()" classname="manager.ManagersTest" time="0.554"/>
   <system-out><![CDATA[Migrations applied successfully
 ]]></system-out>
-  <system-err><![CDATA[нояб. 08, 2022 12:39:29 AM org.flywaydb.core.internal.license.VersionPrinter printVersionOnly
+  <system-err><![CDATA[нояб. 08, 2022 12:40:53 AM org.flywaydb.core.internal.license.VersionPrinter printVersionOnly
 INFO: Flyway Community Edition 6.1.4 by Redgate
-нояб. 08, 2022 12:39:29 AM org.flywaydb.core.internal.database.DatabaseFactory createDatabase
+нояб. 08, 2022 12:40:53 AM org.flywaydb.core.internal.database.DatabaseFactory createDatabase
 INFO: Database: jdbc:postgresql://localhost:5432/VK_HW5 (PostgreSQL 14.2)
-нояб. 08, 2022 12:39:29 AM org.flywaydb.core.internal.database.base.Database recommendFlywayUpgrade
+нояб. 08, 2022 12:40:53 AM org.flywaydb.core.internal.database.base.Database recommendFlywayUpgrade
 WARNING: Flyway upgrade recommended: PostgreSQL 14.2 is newer than this version of Flyway and support has not been tested. The latest supported version of PostgreSQL is 12.
-нояб. 08, 2022 12:39:30 AM org.flywaydb.core.internal.command.DbClean cleanSchema
-INFO: Successfully cleaned schema "public" (execution time 00:00.074s)
-нояб. 08, 2022 12:39:30 AM org.flywaydb.core.internal.database.base.Database recommendFlywayUpgrade
+нояб. 08, 2022 12:40:54 AM org.flywaydb.core.internal.command.DbClean cleanSchema
+INFO: Successfully cleaned schema "public" (execution time 00:00.082s)
+нояб. 08, 2022 12:40:54 AM org.flywaydb.core.internal.database.base.Database recommendFlywayUpgrade
 WARNING: Flyway upgrade recommended: PostgreSQL 14.2 is newer than this version of Flyway and support has not been tested. The latest supported version of PostgreSQL is 12.
-нояб. 08, 2022 12:39:30 AM org.flywaydb.core.internal.command.DbValidate validate
-INFO: Successfully validated 2 migrations (execution time 00:00.011s)
-нояб. 08, 2022 12:39:30 AM org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory create
+нояб. 08, 2022 12:40:54 AM org.flywaydb.core.internal.command.DbValidate validate
+INFO: Successfully validated 2 migrations (execution time 00:00.009s)
+нояб. 08, 2022 12:40:54 AM org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory create
 INFO: Creating Schema History table "public"."flyway_schema_history" ...
-нояб. 08, 2022 12:39:30 AM org.flywaydb.core.internal.command.DbMigrate migrateGroup
+нояб. 08, 2022 12:40:54 AM org.flywaydb.core.internal.command.DbMigrate migrateGroup
 INFO: Current version of schema "public": << Empty Schema >>
-нояб. 08, 2022 12:39:30 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+нояб. 08, 2022 12:40:54 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
 INFO: Migrating schema "public" to version 0 - create tables
-нояб. 08, 2022 12:39:30 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+нояб. 08, 2022 12:40:54 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
 INFO: Migrating schema "public" to version 1 - init tables
-нояб. 08, 2022 12:39:30 AM org.flywaydb.core.internal.command.DbMigrate logSummary
-INFO: Successfully applied 2 migrations to schema "public" (execution time 00:00.197s)
+нояб. 08, 2022 12:40:54 AM org.flywaydb.core.internal.command.DbMigrate logSummary
+INFO: Successfully applied 2 migrations to schema "public" (execution time 00:00.284s)
 ]]></system-err>
 </testsuite>

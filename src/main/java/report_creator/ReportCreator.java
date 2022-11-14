@@ -70,7 +70,7 @@ public class ReportCreator {
     }
 
     public static Double calcAveragePriceDuringPeriod(@NotNull Integer innerCode, @NotNull Timestamp start, @NotNull Timestamp end){
-        final String query = "SELECT AVG(price * invoice_position.amount) as avg " +
+        final String query = "SELECT AVG(price) as avg " +
                 "FROM invoice_position " +
                 "JOIN invoice i on i.num = invoice_position.invoice_num " +
                 "WHERE creation_date BETWEEN ? AND ? " +
