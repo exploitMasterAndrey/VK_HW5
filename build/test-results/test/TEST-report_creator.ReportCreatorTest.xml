@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="report_creator.ReportCreatorTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-11-14T22:37:40" hostname="DESKTOP-OQ9HF9O" time="0.317">
+  <properties/>
+  <testcase name="findFirst10suppliers()" classname="report_creator.ReportCreatorTest" time="0.138"/>
+  <testcase name="getDeliveredByOrganizationsProductsListInPeriod()" classname="report_creator.ReportCreatorTest" time="0.051"/>
+  <testcase name="calcAveragePriceDuringPeriod()" classname="report_creator.ReportCreatorTest" time="0.041"/>
+  <testcase name="findSuppliersWithProductSumGreaterThanInput()" classname="report_creator.ReportCreatorTest" time="0.044"/>
+  <testcase name="calcAmountAndSumEverydayForEveryProductDuringPeriod()" classname="report_creator.ReportCreatorTest" time="0.043"/>
+  <system-out><![CDATA[TOTAL: {275124={amount=121, price=59970}, 234234={amount=121, price=77600}}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
